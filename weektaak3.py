@@ -55,7 +55,9 @@ def codon_counter(_seq_dict):
 
 
 def codon_parser(codon_values):
+    print(len(codon_values))
     codon_bias = {}
+    codon_bias_list = []
     for key in codon_values:
         buffer_list = list(codon_values[key])
         buffer_dict = dict(codon_values[key])
@@ -66,29 +68,32 @@ def codon_parser(codon_values):
                 for codon_name, count in buffer_dict.items():
                     amino_acid = codons[codon_name]
                     codon_bias[amino_acid][codon_name] = count
-    return codon_bias
+        codon_bias_list.append(codon_bias)
+    # print(codon_bias_list)
+    print(len(codon_bias_list))
+    return codon_bias_list
 
 
-def codon_plotter(codon_bias):
-    super_codon_list = []
-    super_values_list = []
-    super_amino_list = []
-    for aminos, _codons in codon_bias.items():
-        codon_buffer_list = ([])
-        value_buffer_list = ([])
-        amino_buffer_list = ([])
-        amino_buffer_list.append(aminos)
-
-        print(aminos)
-        for keys, values in _codons.items():
-            codon_buffer_list.append(keys)
-            value_buffer_list.append(values)
-            super_codon_list.append(codon_buffer_list)
-            super_values_list.append(value_buffer_list)
-        super_amino_list.append(amino_buffer_list)
-    print(super_codon_list)
-    print(super_values_list)
-    print(super_amino_list)
+def codon_plotter(codon_bias_list):
+    for codon_bias in codon_bias_list:
+        print(codon_bias)
+        super_codon_list = []
+        super_values_list = []
+        super_amino_list = []
+        for aminos, _codons in codon_bias.items():
+            codon_buffer_list = ([])
+            value_buffer_list = ([])
+            amino_buffer_list = ([])
+            amino_buffer_list.append(aminos)
+            for keys, values in _codons.items():
+                codon_buffer_list.append(keys)
+                value_buffer_list.append(values)
+                super_codon_list.append(codon_buffer_list)
+                super_values_list.append(value_buffer_list)
+            super_amino_list.append(amino_buffer_list)
+        # print(super_codon_list)
+        # print(super_values_list)
+        # print(super_amino_list)
 
 
 if __name__ == '__main__':
